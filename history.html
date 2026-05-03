@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OCEANIC ORDER - History</title>
+    
+    <!-- Leaflet Map Library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+    
+    <!-- Supabase Client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="logo-icon">⛵</span>
+                OCEANIC ORDER
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">Live Race</a>
+                </li>
+                <li class="nav-item">
+                    <a href="standings.html" class="nav-link">Standings</a>
+                </li>
+                <li class="nav-item">
+                    <a href="history.html" class="nav-link active">History</a>
+                </li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Header -->
+        <div class="page-header">
+            <h1>Race History Replay</h1>
+        </div>
+
+        <!-- Race Selection -->
+        <div class="card selection-card">
+            <div class="selection-grid">
+                <div class="form-group">
+                    <label for="history-race-select">Select Race:</label>
+                    <select id="history-race-select" class="race-dropdown">
+                        <option>Loading races...</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="boat-select">Select Boat:</label>
+                    <select id="boat-select" class="race-dropdown">
+                        <option>Choose a race first</option>
+                    </select>
+                </div>
+                <div class="form-actions">
+                    <button class="btn btn-primary" id="load-history-btn">Load History</button>
+                    <button class="btn btn-secondary" id="play-replay-btn" disabled>▶ Play Replay</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- History View -->
+        <div class="history-content">
+            <!-- Map Section -->
+            <div class="history-map-section">
+                <div id="history-map" class="map-container"></div>
+                <div class="replay-controls">
+                    <button class="btn btn-small" id="replay-prev-btn">⏮ Previous</button>
+                    <button class="btn btn-small" id="replay-play-pause-btn">⏸ Pause</button>
+                    <button class="btn btn-small" id="replay-next-btn">Next ⏭</button>
+                    <div class="replay-speed">
+                        <label for="speed-slider">Speed:</label>
+                        <input type="range" id="speed-slider" min="1" max="10" value="1">
+                        <span id="speed-display">1x</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Data Section -->
+            <div class="history-data-section">
+                <!-- Timeline -->
+                <div class="card timeline-card">
+                    <h3>Timeline</h3>
+                    <div id="timeline-container" class="timeline">
+                        <p class="placeholder">Load history to see timeline</p>
+                    </div>
+                </div>
+
+                <!-- Stats -->
+                <div class="card stats-card">
+                    <h3>Boat Statistics</h3>
+                    <div id="history-stats" class="history-stats">
+                        <p class="placeholder">Load history to see statistics</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div id="loading-spinner" class="spinner">
+        <div class="spinner-circle"></div>
+    </div>
+
+    <!-- Error Toast -->
+    <div id="error-toast" class="toast toast-error"></div>
+
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/history.js"></script>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OCEANIC ORDER - Live Race Tracking</title>
+    
+    <!-- Leaflet Map Library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+    
+    <!-- Supabase Client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="logo-icon">⛵</span>
+                OCEANIC ORDER
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link active">Live Race</a>
+                </li>
+                <li class="nav-item">
+                    <a href="standings.html" class="nav-link">Standings</a>
+                </li>
+                <li class="nav-item">
+                    <a href="history.html" class="nav-link">History</a>
+                </li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Header -->
+        <div class="race-header">
+            <div class="race-info">
+                <h1 id="race-name">Loading Race...</h1>
+                <p id="race-status" class="status-badge status-active">Status: Active</p>
+            </div>
+            <div class="race-controls">
+                <button class="btn btn-primary" id="refresh-btn">🔄 Refresh</button>
+                <button class="btn btn-secondary" id="center-btn">📍 Center Map</button>
+            </div>
+        </div>
+
+        <!-- Main Content Grid -->
+        <div class="content-grid">
+            <!-- Map Section -->
+            <div class="map-section">
+                <div id="map" class="map-container"></div>
+                <div class="map-info">
+                    <p>🟢 <span id="active-boats">0</span> boats tracking</p>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <!-- Live Leaderboard -->
+                <div class="card leaderboard-card">
+                    <h2>Live Leaderboard</h2>
+                    <table class="leaderboard">
+                        <thead>
+                            <tr>
+                                <th>Pos</th>
+                                <th>Boat</th>
+                                <th>Speed</th>
+                                <th>Distance</th>
+                            </tr>
+                        </thead>
+                        <tbody id="leaderboard-body">
+                            <tr>
+                                <td colspan="4" class="loading">Loading boats...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Boat Details -->
+                <div class="card boat-details-card">
+                    <h2>Selected Boat</h2>
+                    <div id="boat-details" class="boat-details">
+                        <p class="placeholder">Click a boat on the map to see details</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div id="loading-spinner" class="spinner">
+        <div class="spinner-circle"></div>
+    </div>
+
+    <!-- Error Toast -->
+    <div id="error-toast" class="toast toast-error"></div>
+    <div id="success-toast" class="toast toast-success"></div>
+
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/realtime.js"></script>
+    <script src="js/map.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
