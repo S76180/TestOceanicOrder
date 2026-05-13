@@ -1,117 +1,137 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OCEANIC ORDER - Live Race Tracking</title>
-    
-    <!-- Leaflet Map Library -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
-    
-    <!-- Supabase Client -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OCEANIC ORDER — Dashboard</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛵</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/shared.css">
+  <link rel="stylesheet" href="css/dashboard.css">
 </head>
 <body>
-    <!-- Navigation Bar -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <span class="logo-icon">⛵</span>
-                OCEANIC ORDER
-            </div>
-            <ul class="nav-menu">
-                <li class="nav-item">
-                    <a href="index.html" class="nav-link active">Live Race</a>
-                </li>
-                <li class="nav-item">
-                    <a href="standings.html" class="nav-link">Standings</a>
-                </li>
-                <li class="nav-item">
-                    <a href="history.html" class="nav-link">History</a>
-                </li>
-            </ul>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
+  <div id="navbar-container"></div>
+
+  <main class="main-content">
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-bg"></div>
+      <div class="hero-content">
+        <h1 class="hero-title">OCEANIC ORDER</h1>
+        <p class="hero-subtitle">Real-Time Regatta Tracking System</p>
+        <div class="hero-actions">
+          <a href="live-race.html" class="btn btn-primary">View Live Race ➜</a>
+          <a href="history.html" class="btn btn-secondary">Race History</a>
         </div>
-    </nav>
+      </div>
+      <div class="hero-wave">
+        <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+          <path d="M0,64 C360,120 720,0 1080,64 C1260,96 1380,80 1440,64 L1440,120 L0,120 Z" fill="var(--bg-dark)"/>
+        </svg>
+      </div>
+    </section>
 
-    <!-- Main Container -->
-    <div class="container">
-        <!-- Header -->
-        <div class="race-header">
-            <div class="race-info">
-                <h1 id="race-name">Loading Race...</h1>
-                <p id="race-status" class="status-badge status-active">Status: Active</p>
-            </div>
-            <div class="race-controls">
-                <button class="btn btn-primary" id="refresh-btn">🔄 Refresh</button>
-                <button class="btn btn-secondary" id="center-btn">📍 Center Map</button>
-            </div>
+    <div class="page-container">
+      <!-- Stats Overview -->
+      <section class="stats-section slide-up">
+        <div class="grid grid-4 stagger" id="statsGrid">
+          <div class="card stat-card">
+            <div class="stat-icon" style="color: var(--danger);">🏁</div>
+            <div class="stat-value" id="statLiveRaces">—</div>
+            <div class="stat-label">Live Races</div>
+          </div>
+          <div class="card stat-card">
+            <div class="stat-icon" style="color: var(--accent);">⛵</div>
+            <div class="stat-value" id="statActiveBoats">—</div>
+            <div class="stat-label">Active Boats</div>
+          </div>
+          <div class="card stat-card">
+            <div class="stat-icon" style="color: var(--success);">📊</div>
+            <div class="stat-value" id="statCompletedRaces">—</div>
+            <div class="stat-label">Completed Races</div>
+          </div>
+          <div class="card stat-card">
+            <div class="stat-icon" style="color: var(--warning);">💨</div>
+            <div class="stat-value" id="statWindSpeed">—</div>
+            <div class="stat-label">Wind Speed (kn)</div>
+          </div>
         </div>
+      </section>
 
-        <!-- Main Content Grid -->
-        <div class="content-grid">
-            <!-- Map Section -->
-            <div class="map-section">
-                <div id="map" class="map-container"></div>
-                <div class="map-info">
-                    <p>🟢 <span id="active-boats">0</span> boats tracking</p>
-                </div>
-            </div>
-
-            <!-- Sidebar -->
-            <div class="sidebar">
-                <!-- Live Leaderboard -->
-                <div class="card leaderboard-card">
-                    <h2>Live Leaderboard</h2>
-                    <table class="leaderboard">
-                        <thead>
-                            <tr>
-                                <th>Pos</th>
-                                <th>Boat</th>
-                                <th>Speed</th>
-                                <th>Distance</th>
-                            </tr>
-                        </thead>
-                        <tbody id="leaderboard-body">
-                            <tr>
-                                <td colspan="4" class="loading">Loading boats...</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <!-- Boat Details -->
-                <div class="card boat-details-card">
-                    <h2>Selected Boat</h2>
-                    <div id="boat-details" class="boat-details">
-                        <p class="placeholder">Click a boat on the map to see details</p>
-                    </div>
-                </div>
-            </div>
+      <!-- Current Race Summary -->
+      <section class="current-race-section mt-3">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">Current Race</h2>
+            <p class="section-subtitle">Live tracking overview</p>
+          </div>
+          <a href="live-race.html" class="btn btn-sm btn-secondary">Open Full Map ➜</a>
         </div>
+        <div class="card" id="currentRaceCard">
+          <div class="loading-spinner"></div>
+        </div>
+      </section>
+
+      <!-- Leaderboard & Upcoming -->
+      <section class="dual-section mt-3">
+        <div class="grid grid-2">
+          <!-- Leaderboard -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">🏆 Leaderboard</span>
+              <span class="badge badge-live">Live</span>
+            </div>
+            <div id="leaderboard">
+              <div class="loading-spinner"></div>
+            </div>
+          </div>
+
+          <!-- Upcoming Races -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">📅 Upcoming Races</span>
+            </div>
+            <div id="upcomingRaces">
+              <div class="loading-spinner"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Recent Results -->
+      <section class="recent-results-section mt-3 mb-3">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">Recent Results</h2>
+            <p class="section-subtitle">Latest completed races</p>
+          </div>
+          <a href="history.html" class="btn btn-sm btn-secondary">View All ➜</a>
+        </div>
+        <div class="card">
+          <table class="data-table" id="recentResultsTable">
+            <thead>
+              <tr>
+                <th>Race</th>
+                <th>Date</th>
+                <th>Winner</th>
+                <th>Distance</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="recentResultsBody">
+              <tr><td colspan="5" class="text-center text-muted">Loading...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
     </div>
+  </main>
 
-    <!-- Loading Spinner -->
-    <div id="loading-spinner" class="spinner">
-        <div class="spinner-circle"></div>
-    </div>
+  <div id="footer-container"></div>
 
-    <!-- Error Toast -->
-    <div id="error-toast" class="toast toast-error"></div>
-    <div id="success-toast" class="toast toast-success"></div>
-
-    <!-- Scripts -->
-    <script src="js/config.js"></script>
-    <script src="js/realtime.js"></script>
-    <script src="js/map.js"></script>
-    <script src="js/main.js"></script>
+  <script src="js/shared.js"></script>
+  <script src="js/supabase-config.js"></script>
+  <script src="js/dashboard.js"></script>
 </body>
 </html>

@@ -1,124 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OCEANIC ORDER - History</title>
-    
-    <!-- Leaflet Map Library -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
-    
-    <!-- Supabase Client -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OCEANIC ORDER — Race History</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛵</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <!-- Leaflet for replay map -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="css/shared.css">
+  <link rel="stylesheet" href="css/history.css">
 </head>
 <body>
-    <!-- Navigation Bar -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <span class="logo-icon">⛵</span>
-                OCEANIC ORDER
-            </div>
-            <ul class="nav-menu">
-                <li class="nav-item">
-                    <a href="index.html" class="nav-link">Live Race</a>
-                </li>
-                <li class="nav-item">
-                    <a href="standings.html" class="nav-link">Standings</a>
-                </li>
-                <li class="nav-item">
-                    <a href="history.html" class="nav-link active">History</a>
-                </li>
-            </ul>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
+  <div id="navbar-container"></div>
+
+  <main class="main-content">
+    <div class="page-container">
+      <!-- Header -->
+      <section class="section-header slide-up">
+        <div>
+          <h1 class="section-title">Race History</h1>
+          <p class="section-subtitle">Browse and replay past races</p>
         </div>
-    </nav>
-
-    <!-- Main Container -->
-    <div class="container">
-        <!-- Header -->
-        <div class="page-header">
-            <h1>Race History Replay</h1>
+        <div class="history-filters">
+          <select class="filter-select" id="filterStatus">
+            <option value="all">All Races</option>
+            <option value="completed">Completed</option>
+            <option value="upcoming">Upcoming</option>
+            <option value="live">Live</option>
+          </select>
+          <select class="filter-select" id="filterSort">
+            <option value="newest">Newest First</option>
+            <option value="oldest">Oldest First</option>
+          </select>
         </div>
+      </section>
 
-        <!-- Race Selection -->
-        <div class="card selection-card">
-            <div class="selection-grid">
-                <div class="form-group">
-                    <label for="history-race-select">Select Race:</label>
-                    <select id="history-race-select" class="race-dropdown">
-                        <option>Loading races...</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="boat-select">Select Boat:</label>
-                    <select id="boat-select" class="race-dropdown">
-                        <option>Choose a race first</option>
-                    </select>
-                </div>
-                <div class="form-actions">
-                    <button class="btn btn-primary" id="load-history-btn">Load History</button>
-                    <button class="btn btn-secondary" id="play-replay-btn" disabled>▶ Play Replay</button>
-                </div>
-            </div>
+      <!-- Race Cards Grid -->
+      <section class="race-cards-grid" id="raceCardsGrid">
+        <div class="loading-spinner"></div>
+      </section>
+
+      <!-- Race Detail Modal -->
+      <div class="modal-overlay" id="raceDetailModal">
+        <div class="modal" style="max-width: 900px;">
+          <div class="modal-header">
+            <h3 class="modal-title" id="modalRaceName">Race Details</h3>
+            <button class="modal-close" id="modalClose">✕</button>
+          </div>
+          <div id="modalContent">
+            <div class="loading-spinner"></div>
+          </div>
         </div>
+      </div>
 
-        <!-- History View -->
-        <div class="history-content">
-            <!-- Map Section -->
-            <div class="history-map-section">
-                <div id="history-map" class="map-container"></div>
-                <div class="replay-controls">
-                    <button class="btn btn-small" id="replay-prev-btn">⏮ Previous</button>
-                    <button class="btn btn-small" id="replay-play-pause-btn">⏸ Pause</button>
-                    <button class="btn btn-small" id="replay-next-btn">Next ⏭</button>
-                    <div class="replay-speed">
-                        <label for="speed-slider">Speed:</label>
-                        <input type="range" id="speed-slider" min="1" max="10" value="1">
-                        <span id="speed-display">1x</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Data Section -->
-            <div class="history-data-section">
-                <!-- Timeline -->
-                <div class="card timeline-card">
-                    <h3>Timeline</h3>
-                    <div id="timeline-container" class="timeline">
-                        <p class="placeholder">Load history to see timeline</p>
-                    </div>
-                </div>
-
-                <!-- Stats -->
-                <div class="card stats-card">
-                    <h3>Boat Statistics</h3>
-                    <div id="history-stats" class="history-stats">
-                        <p class="placeholder">Load history to see statistics</p>
-                    </div>
-                </div>
-            </div>
+      <!-- Race Replay Section -->
+      <section class="replay-section mt-3 mb-3" id="replaySection" style="display:none;">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">Race Replay</h2>
+            <p class="section-subtitle" id="replayRaceName">—</p>
+          </div>
+          <button class="btn btn-secondary btn-sm" id="closeReplay">Close Replay</button>
         </div>
+        <div class="card replay-card">
+          <div class="replay-map-container">
+            <div id="replayMap" style="height: 450px;"></div>
+          </div>
+          <div class="replay-controls">
+            <button class="btn btn-primary btn-sm" id="replayPlayBtn">▶ Play</button>
+            <input type="range" class="replay-slider" id="replaySlider" min="0" max="100" value="0">
+            <span class="replay-time" id="replayTimeLabel">00:00</span>
+            <select class="filter-select" id="replaySpeed">
+              <option value="1">1x</option>
+              <option value="2" selected>2x</option>
+              <option value="5">5x</option>
+              <option value="10">10x</option>
+            </select>
+          </div>
+          <!-- Results table -->
+          <div class="replay-results mt-2" id="replayResults"></div>
+        </div>
+      </section>
     </div>
+  </main>
 
-    <!-- Loading Spinner -->
-    <div id="loading-spinner" class="spinner">
-        <div class="spinner-circle"></div>
-    </div>
+  <div id="footer-container"></div>
 
-    <!-- Error Toast -->
-    <div id="error-toast" class="toast toast-error"></div>
-
-    <!-- Scripts -->
-    <script src="js/config.js"></script>
-    <script src="js/history.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="js/shared.js"></script>
+  <script src="js/supabase-config.js"></script>
+  <script src="js/history.js"></script>
 </body>
 </html>

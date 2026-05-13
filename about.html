@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OCEANIC ORDER — About</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛵</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/shared.css">
+  <link rel="stylesheet" href="css/about.css">
+</head>
+<body>
+  <div id="navbar-container"></div>
+
+  <main class="main-content">
+    <div class="page-container">
+      <!-- Hero -->
+      <section class="about-hero slide-up">
+        <h1 class="about-title">About OCEANIC ORDER</h1>
+        <p class="about-lead">
+          A modern, real-time regatta tracking platform that brings the excitement of sailing
+          competitions to your screen — live boat positions, race replays, and full leaderboard data.
+        </p>
+      </section>
+
+      <!-- Features -->
+      <section class="features-section mt-3">
+        <h2 class="section-title mb-2">Key Features</h2>
+        <div class="grid grid-3 stagger">
+          <div class="card feature-card">
+            <div class="feature-icon">📍</div>
+            <h3 class="feature-title">Live GPS Tracking</h3>
+            <p class="feature-desc">
+              Each boat is equipped with a GPS tracker that transmits its position in real-time.
+              Watch boats move across the map with colored track trails.
+            </p>
+          </div>
+          <div class="card feature-card">
+            <div class="feature-icon">🗺️</div>
+            <h3 class="feature-title">Interactive Map</h3>
+            <p class="feature-desc">
+              Built on Leaflet.js with dark ocean tiles. Click any boat to see speed, heading,
+              and coordinates. Toggle tracks, zoom in, and follow the fleet.
+            </p>
+          </div>
+          <div class="card feature-card">
+            <div class="feature-icon">🔴</div>
+            <h3 class="feature-title">Real-Time Updates</h3>
+            <p class="feature-desc">
+              Powered by Supabase Realtime, boat positions stream live via WebSocket.
+              No page refresh needed — data arrives the moment a tracker sends it.
+            </p>
+          </div>
+          <div class="card feature-card">
+            <div class="feature-icon">📊</div>
+            <h3 class="feature-title">Leaderboard</h3>
+            <p class="feature-desc">
+              Dynamic rankings update as boats cross waypoints and finish lines.
+              See speed, position, and ranking at a glance.
+            </p>
+          </div>
+          <div class="card feature-card">
+            <div class="feature-icon">🔄</div>
+            <h3 class="feature-title">Race Replay</h3>
+            <p class="feature-desc">
+              Browse past races and watch full replays with adjustable playback speed.
+              Study race strategies and track performance over time.
+            </p>
+          </div>
+          <div class="card feature-card">
+            <div class="feature-icon">📱</div>
+            <h3 class="feature-title">Responsive Design</h3>
+            <p class="feature-desc">
+              Works on desktop, tablet, and mobile. The sidebar collapses into a slide-out panel
+              on smaller screens for a seamless experience anywhere.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tech Stack -->
+      <section class="tech-section mt-3">
+        <h2 class="section-title mb-2">Technology Stack</h2>
+        <div class="grid grid-2">
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">Frontend</span>
+            </div>
+            <ul class="tech-list">
+              <li><strong>HTML5 / CSS3 / JavaScript</strong> — No framework dependencies, pure vanilla</li>
+              <li><strong>Leaflet.js</strong> — Open-source interactive maps</li>
+              <li><strong>CARTO Dark Tiles</strong> — Ocean-themed dark basemap</li>
+              <li><strong>CSS Custom Properties</strong> — Theming and design tokens</li>
+              <li><strong>Responsive Grid</strong> — Mobile-first layout system</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">Backend & Data</span>
+            </div>
+            <ul class="tech-list">
+              <li><strong>Supabase</strong> — PostgreSQL database + Realtime subscriptions</li>
+              <li><strong>Supabase JS Client</strong> — Client-side data fetching</li>
+              <li><strong>Row Level Security</strong> — Secure data access</li>
+              <li><strong>WebSocket</strong> — Live position streaming</li>
+              <li><strong>REST API</strong> — Historical data queries</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Hardware Guide Summary -->
+      <section class="hardware-section mt-3">
+        <h2 class="section-title mb-2">Hardware Integration</h2>
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">GPS Tracker Setup</span>
+            <span class="badge badge-upcoming">Guide Available</span>
+          </div>
+          <div class="hardware-content">
+            <p class="mb-2">
+              To track real boats, you need GPS hardware on each vessel that sends coordinates to Supabase.
+              We recommend the following components:
+            </p>
+            <div class="grid grid-3">
+              <div class="hardware-item">
+                <div class="hardware-icon">🔧</div>
+                <h4>ESP32 Microcontroller</h4>
+                <p>WiFi + Bluetooth capable microcontroller to process GPS data and send it to the cloud.</p>
+              </div>
+              <div class="hardware-item">
+                <div class="hardware-icon">📡</div>
+                <h4>NEO-6M GPS Module</h4>
+                <p>Affordable, reliable GPS receiver that provides latitude, longitude, speed, and heading.</p>
+              </div>
+              <div class="hardware-item">
+                <div class="hardware-icon">📶</div>
+                <h4>SIM800L GSM Module</h4>
+                <p>Cellular connectivity for sending GPS data when WiFi is not available on the water.</p>
+              </div>
+            </div>
+            <p class="mt-2 text-muted">
+              See the full <strong>GUIDE.md</strong> file included in this project for detailed
+              wiring diagrams, Arduino code, and step-by-step hardware setup instructions.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact -->
+      <section class="contact-section mt-3 mb-3">
+        <div class="card text-center" style="padding: 3rem;">
+          <h2 class="section-title mb-1">Get In Touch</h2>
+          <p class="text-muted mb-2">Have questions about setting up OCEANIC ORDER for your regatta?</p>
+          <div class="d-flex justify-between gap-2" style="justify-content: center;">
+            <a href="https://github.com" class="btn btn-secondary" target="_blank">GitHub Repository</a>
+            <a href="mailto:contact@oceanicorder.com" class="btn btn-primary">Contact Us</a>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <div id="footer-container"></div>
+
+  <script src="js/shared.js"></script>
+  <script src="js/supabase-config.js"></script>
+</body>
+</html>
