@@ -10,7 +10,13 @@ let supabaseClient = null;
 
 function getSupabase() {
   if (!supabaseClient && typeof supabase !== 'undefined') {
-    supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    if (SUPABASE_URL.startsWith('http') && SUPABASE_ANON_KEY.length > 20) {
+      try {
+        supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      } catch {
+        return null;
+      }
+    }
   }
   return supabaseClient;
 }

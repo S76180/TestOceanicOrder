@@ -38,11 +38,13 @@ function highlightCurrentPage() {
 
 async function updateAuthUI() {
   const user = await getCurrentUser();
+  const demoUser = JSON.parse(localStorage.getItem('iconmic_demo_user') || 'null');
+  const activeUser = user || demoUser;
   const navActions = document.querySelector('.nav-actions');
   if (!navActions) return;
 
-  if (user) {
-    const displayName = user.user_metadata?.display_name || user.email?.split('@')[0] || 'User';
+  if (activeUser) {
+    const displayName = activeUser.user_metadata?.display_name || activeUser.display_name || activeUser.email?.split('@')[0] || 'User';
     const initials = displayName.substring(0, 2).toUpperCase();
     navActions.innerHTML = `
       <div class="nav-user" onclick="toggleUserMenu()">
@@ -53,7 +55,7 @@ async function updateAuthUI() {
         <a href="profile.html">My Profile</a>
         <a href="library.html">My Library</a>
         <hr style="border-color: var(--border); margin: 0.5rem 0;">
-        <a href="#" onclick="signOut(); return false;">Sign Out</a>
+        <a href="#" onclick="handleSignOut(); return false;">Sign Out</a>
       </div>
     `;
   } else {
@@ -62,6 +64,11 @@ async function updateAuthUI() {
       <a href="register.html" class="btn btn-primary btn-sm">Get Started</a>
     `;
   }
+}
+
+function handleSignOut() {
+  localStorage.removeItem('iconmic_demo_user');
+  signOut();
 }
 
 function toggleUserMenu() {
