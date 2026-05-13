@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Scan ICONMIC QR codes to access books instantly">
+  <meta name="theme-color" content="#6C5CE7">
+  <title>QR Scanner - ICONMIC</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📖</text></svg>">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="css/scanner.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <div class="logo-icon">IC</div>
+        ICONMIC
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="library.html">Library</a>
+        <a href="scanner.html" class="active">Scan QR</a>
+      </div>
+      <div class="nav-actions">
+        <a href="login.html" class="btn btn-ghost btn-sm">Sign In</a>
+        <a href="register.html" class="btn btn-primary btn-sm">Get Started</a>
+      </div>
+      <button class="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="page-content">
+    <div class="container">
+      <div class="scanner-page">
+        <!-- Scanner Header -->
+        <div class="scanner-header">
+          <h1>Scan <span class="text-gradient">QR Code</span></h1>
+          <p>Point your camera at an ICONMIC card to unlock a book instantly</p>
+        </div>
+
+        <!-- Scanner Area -->
+        <div class="scanner-area">
+          <div class="scanner-box" id="scannerBox">
+            <div id="qrReader" class="qr-reader"></div>
+            <div class="scanner-overlay" id="scannerOverlay">
+              <div class="scanner-frame">
+                <div class="corner top-left"></div>
+                <div class="corner top-right"></div>
+                <div class="corner bottom-left"></div>
+                <div class="corner bottom-right"></div>
+                <div class="scan-line"></div>
+              </div>
+              <p class="scanner-hint">Position the QR code within the frame</p>
+            </div>
+          </div>
+
+          <div class="scanner-controls">
+            <button class="btn btn-primary btn-lg" id="startScanBtn" onclick="startScanner()">
+              &#128247; Start Camera
+            </button>
+            <button class="btn btn-secondary btn-lg" id="stopScanBtn" onclick="stopScanner()" style="display: none;">
+              Stop Camera
+            </button>
+          </div>
+        </div>
+
+        <!-- Manual Entry -->
+        <div class="manual-entry">
+          <div class="divider-text">
+            <span>or enter code manually</span>
+          </div>
+          <div class="manual-form">
+            <input type="text" id="manualCode" class="form-input" placeholder="Enter book code (e.g., ICONMIC-BOOK-001)">
+            <button class="btn btn-primary" onclick="processManualCode()">Go</button>
+          </div>
+        </div>
+
+        <!-- Scan Result -->
+        <div class="scan-result" id="scanResult" style="display: none;">
+          <div class="scan-result-card">
+            <div class="scan-success-icon">&#9989;</div>
+            <h3>Book Found!</h3>
+            <div class="scan-book-info" id="scanBookInfo"></div>
+            <a href="#" id="scanReadBtn" class="btn btn-primary btn-lg">Read Now</a>
+          </div>
+        </div>
+
+        <!-- How It Works -->
+        <div class="how-it-works">
+          <h2>How It Works</h2>
+          <div class="steps-grid">
+            <div class="step-card">
+              <div class="step-number">1</div>
+              <h4>Get a Card</h4>
+              <p>Purchase an ICONMIC physical card from our retail partners or online store.</p>
+            </div>
+            <div class="step-card">
+              <div class="step-number">2</div>
+              <h4>Scan the QR</h4>
+              <p>Use this scanner or your phone camera to scan the QR code on the card.</p>
+            </div>
+            <div class="step-card">
+              <div class="step-number">3</div>
+              <h4>Sign In</h4>
+              <p>Create a free account or sign in to your existing ICONMIC account.</p>
+            </div>
+            <div class="step-card">
+              <div class="step-number">4</div>
+              <h4>Start Reading</h4>
+              <p>The book is unlocked and added to your library. Enjoy reading!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom" style="border: none; padding: 0;">
+        <span>&copy; 2024 ICONMIC. All rights reserved.</span>
+        <span>Made with care for readers everywhere</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+  <script src="js/supabase-config.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/scanner.js"></script>
+</body>
+</html>

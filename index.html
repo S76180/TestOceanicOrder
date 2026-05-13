@@ -3,135 +3,227 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>OCEANIC ORDER — Dashboard</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛵</text></svg>">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/shared.css">
-  <link rel="stylesheet" href="css/dashboard.css">
+  <meta name="description" content="ICONMIC - Your premium e-book reading platform. Discover, read, and enjoy books across every genre.">
+  <meta name="theme-color" content="#6C5CE7">
+  <title>ICONMIC - E-Book Reading Platform</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📖</text></svg>">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="css/index.css">
 </head>
 <body>
-  <div id="navbar-container"></div>
-
-  <main class="main-content">
-    <!-- Hero Section -->
-    <section class="hero">
-      <div class="hero-bg"></div>
-      <div class="hero-content">
-        <h1 class="hero-title">OCEANIC ORDER</h1>
-        <p class="hero-subtitle">Real-Time Regatta Tracking System</p>
-        <div class="hero-actions">
-          <a href="live-race.html" class="btn btn-primary">View Live Race ➜</a>
-          <a href="history.html" class="btn btn-secondary">Race History</a>
-        </div>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <div class="logo-icon">IC</div>
+        ICONMIC
+      </a>
+      <div class="nav-links">
+        <a href="index.html" class="active">Home</a>
+        <a href="library.html">Library</a>
+        <a href="scanner.html">Scan QR</a>
       </div>
-      <div class="hero-wave">
-        <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
-          <path d="M0,64 C360,120 720,0 1080,64 C1260,96 1380,80 1440,64 L1440,120 L0,120 Z" fill="var(--bg-dark)"/>
-        </svg>
+      <div class="nav-actions">
+        <a href="login.html" class="btn btn-ghost btn-sm">Sign In</a>
+        <a href="register.html" class="btn btn-primary btn-sm">Get Started</a>
       </div>
-    </section>
-
-    <div class="page-container">
-      <!-- Stats Overview -->
-      <section class="stats-section slide-up">
-        <div class="grid grid-4 stagger" id="statsGrid">
-          <div class="card stat-card">
-            <div class="stat-icon" style="color: var(--danger);">🏁</div>
-            <div class="stat-value" id="statLiveRaces">—</div>
-            <div class="stat-label">Live Races</div>
-          </div>
-          <div class="card stat-card">
-            <div class="stat-icon" style="color: var(--accent);">⛵</div>
-            <div class="stat-value" id="statActiveBoats">—</div>
-            <div class="stat-label">Active Boats</div>
-          </div>
-          <div class="card stat-card">
-            <div class="stat-icon" style="color: var(--success);">📊</div>
-            <div class="stat-value" id="statCompletedRaces">—</div>
-            <div class="stat-label">Completed Races</div>
-          </div>
-          <div class="card stat-card">
-            <div class="stat-icon" style="color: var(--warning);">💨</div>
-            <div class="stat-value" id="statWindSpeed">—</div>
-            <div class="stat-label">Wind Speed (kn)</div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Current Race Summary -->
-      <section class="current-race-section mt-3">
-        <div class="section-header">
-          <div>
-            <h2 class="section-title">Current Race</h2>
-            <p class="section-subtitle">Live tracking overview</p>
-          </div>
-          <a href="live-race.html" class="btn btn-sm btn-secondary">Open Full Map ➜</a>
-        </div>
-        <div class="card" id="currentRaceCard">
-          <div class="loading-spinner"></div>
-        </div>
-      </section>
-
-      <!-- Leaderboard & Upcoming -->
-      <section class="dual-section mt-3">
-        <div class="grid grid-2">
-          <!-- Leaderboard -->
-          <div class="card">
-            <div class="card-header">
-              <span class="card-title">🏆 Leaderboard</span>
-              <span class="badge badge-live">Live</span>
-            </div>
-            <div id="leaderboard">
-              <div class="loading-spinner"></div>
-            </div>
-          </div>
-
-          <!-- Upcoming Races -->
-          <div class="card">
-            <div class="card-header">
-              <span class="card-title">📅 Upcoming Races</span>
-            </div>
-            <div id="upcomingRaces">
-              <div class="loading-spinner"></div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Recent Results -->
-      <section class="recent-results-section mt-3 mb-3">
-        <div class="section-header">
-          <div>
-            <h2 class="section-title">Recent Results</h2>
-            <p class="section-subtitle">Latest completed races</p>
-          </div>
-          <a href="history.html" class="btn btn-sm btn-secondary">View All ➜</a>
-        </div>
-        <div class="card">
-          <table class="data-table" id="recentResultsTable">
-            <thead>
-              <tr>
-                <th>Race</th>
-                <th>Date</th>
-                <th>Winner</th>
-                <th>Distance</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody id="recentResultsBody">
-              <tr><td colspan="5" class="text-center text-muted">Loading...</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
+      <button class="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
     </div>
-  </main>
+  </nav>
 
-  <div id="footer-container"></div>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <span class="badge badge-primary">New Platform</span>
+        <h1>Read Your Favorite Books <span class="text-gradient">Anytime, Anywhere</span></h1>
+        <p class="hero-subtitle">ICONMIC is your premium e-book reading platform. Discover thousands of books, scan QR codes to unlock content instantly, and enjoy a seamless reading experience.</p>
+        <div class="hero-actions">
+          <a href="register.html" class="btn btn-primary btn-lg">Start Reading Free</a>
+          <a href="#genres" class="btn btn-secondary btn-lg">Browse Genres</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat">
+            <strong>10K+</strong>
+            <span>Books</span>
+          </div>
+          <div class="stat">
+            <strong>50+</strong>
+            <span>Genres</span>
+          </div>
+          <div class="stat">
+            <strong>100K+</strong>
+            <span>Readers</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-phone">
+          <div class="phone-screen">
+            <div class="phone-header">
+              <span class="phone-logo">ICONMIC</span>
+            </div>
+            <div class="phone-book-preview">
+              <div class="preview-cover" style="background: linear-gradient(135deg, #6C5CE7, #A29BFE);"></div>
+              <div class="preview-cover" style="background: linear-gradient(135deg, #00CEC9, #55EFC4);"></div>
+              <div class="preview-cover" style="background: linear-gradient(135deg, #FD79A8, #E84393);"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <script src="js/shared.js"></script>
+  <!-- Features Section -->
+  <section class="features" id="features">
+    <div class="container">
+      <div class="section-header">
+        <h2>Why Choose <span class="text-gradient">ICONMIC</span>?</h2>
+        <p>Experience reading like never before with our powerful features</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon" style="background: rgba(108, 92, 231, 0.15);">&#128248;</div>
+          <h3>QR Code Access</h3>
+          <p>Scan QR codes from physical cards to instantly access specific books. Perfect for retail and gifting.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon" style="background: rgba(0, 206, 201, 0.15);">&#128274;</div>
+          <h3>Content Protection</h3>
+          <p>Advanced anti-piracy measures protect authors' works. No screenshots, no copying, no unauthorized sharing.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon" style="background: rgba(253, 121, 168, 0.15);">&#128241;</div>
+          <h3>Works Everywhere</h3>
+          <p>Install as an app on any device. Read on your phone, tablet, or desktop with a seamless experience.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon" style="background: rgba(0, 184, 148, 0.15);">&#128218;</div>
+          <h3>Vast Library</h3>
+          <p>Browse thousands of titles across every genre. New books added daily from top authors and publishers.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Genres Section -->
+  <section class="genres-section" id="genres">
+    <div class="container">
+      <div class="section-header">
+        <h2>Explore <span class="text-gradient">Genres</span></h2>
+        <p>Find your next favorite read from our curated collection</p>
+      </div>
+      <div class="genres-grid" id="genresGrid">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Trending Books Section -->
+  <section class="trending-section" id="trending">
+    <div class="container">
+      <div class="section-header">
+        <h2>Trending <span class="text-gradient">Now</span></h2>
+        <p>Popular reads our community is loving</p>
+      </div>
+      <div class="books-grid" id="trendingBooks">
+        <!-- Populated by JS -->
+      </div>
+      <div class="section-cta">
+        <a href="library.html" class="btn btn-secondary btn-lg">View All Books</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- QR Section -->
+  <section class="qr-section">
+    <div class="container">
+      <div class="qr-content">
+        <div class="qr-text">
+          <span class="badge badge-primary">Physical + Digital</span>
+          <h2>Got an <span class="text-gradient">ICONMIC Card</span>?</h2>
+          <p>Our physical cards come with unique QR codes that unlock specific books instantly. Buy a card, scan the code, and start reading. It's that simple.</p>
+          <a href="scanner.html" class="btn btn-accent btn-lg">Scan QR Code</a>
+        </div>
+        <div class="qr-visual">
+          <div class="qr-card-preview">
+            <div class="qr-card-front">
+              <div class="qr-card-logo">ICONMIC</div>
+              <div class="qr-card-placeholder">
+                <div class="qr-fake">
+                  <div class="qr-row"><span></span><span></span><span></span><span></span><span></span></div>
+                  <div class="qr-row"><span></span><span></span><span></span><span></span><span></span></div>
+                  <div class="qr-row"><span></span><span></span><span></span><span></span><span></span></div>
+                  <div class="qr-row"><span></span><span></span><span></span><span></span><span></span></div>
+                  <div class="qr-row"><span></span><span></span><span></span><span></span><span></span></div>
+                </div>
+              </div>
+              <p class="qr-card-text">Scan to read</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-card">
+        <h2>Ready to Start Reading?</h2>
+        <p>Join thousands of readers on ICONMIC. Create your free account and dive into your first book today.</p>
+        <div class="cta-actions">
+          <a href="register.html" class="btn btn-primary btn-lg">Create Free Account</a>
+          <a href="library.html" class="btn btn-ghost btn-lg">Browse Library</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3>ICONMIC</h3>
+          <p>Your premium e-book reading platform. Discover, read, and enjoy books across every genre with secure, piracy-free content.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Platform</h4>
+          <a href="library.html">Library</a>
+          <a href="scanner.html">QR Scanner</a>
+          <a href="register.html">Sign Up</a>
+        </div>
+        <div class="footer-col">
+          <h4>Genres</h4>
+          <a href="library.html?genre=fiction">Fiction</a>
+          <a href="library.html?genre=mystery">Mystery</a>
+          <a href="library.html?genre=scifi">Sci-Fi</a>
+          <a href="library.html?genre=romance">Romance</a>
+        </div>
+        <div class="footer-col">
+          <h4>Support</h4>
+          <a href="#">Help Center</a>
+          <a href="#">Contact Us</a>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2024 ICONMIC. All rights reserved.</span>
+        <span>Made with care for readers everywhere</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/supabase-config.js"></script>
-  <script src="js/dashboard.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/index.js"></script>
 </body>
 </html>

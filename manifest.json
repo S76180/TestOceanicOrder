@@ -1,0 +1,40 @@
+{
+  "name": "ICONMIC - E-Book Reading Platform",
+  "short_name": "ICONMIC",
+  "description": "Your premium e-book reading platform. Discover, read, and enjoy books across every genre.",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#0F0F1A",
+  "theme_color": "#6C5CE7",
+  "orientation": "any",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "images/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "images/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["books", "education", "entertainment"],
+  "shortcuts": [
+    {
+      "name": "Library",
+      "short_name": "Library",
+      "url": "/library.html",
+      "description": "Browse the book library"
+    },
+    {
+      "name": "Scan QR",
+      "short_name": "Scan",
+      "url": "/scanner.html",
+      "description": "Scan a QR code to read a book"
+    }
+  ]
+}

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Create your ICONMIC account and start reading">
+  <meta name="theme-color" content="#6C5CE7">
+  <title>Create Account - ICONMIC</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📖</text></svg>">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="css/auth.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <div class="logo-icon">IC</div>
+        ICONMIC
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="library.html">Library</a>
+        <a href="scanner.html">Scan QR</a>
+      </div>
+      <div class="nav-actions">
+        <a href="login.html" class="btn btn-ghost btn-sm">Sign In</a>
+        <a href="register.html" class="btn btn-primary btn-sm active">Get Started</a>
+      </div>
+      <button class="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Register Form -->
+  <div class="auth-page page-content">
+    <div class="auth-container">
+      <div class="auth-card">
+        <div class="auth-header">
+          <div class="auth-logo">IC</div>
+          <h1>Create Account</h1>
+          <p>Join ICONMIC and start your reading adventure</p>
+        </div>
+
+        <form id="registerForm" class="auth-form">
+          <div class="form-group">
+            <label class="form-label" for="displayName">Display Name</label>
+            <input type="text" id="displayName" class="form-input" placeholder="Your name" required autocomplete="name">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="email">Email Address</label>
+            <input type="email" id="email" class="form-input" placeholder="you@example.com" required autocomplete="email">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="password">Password</label>
+            <div class="password-wrapper">
+              <input type="password" id="password" class="form-input" placeholder="Min 8 characters" required minlength="8" autocomplete="new-password">
+              <button type="button" class="password-toggle" onclick="togglePassword('password')">&#128065;</button>
+            </div>
+            <div class="password-strength" id="passwordStrength">
+              <div class="strength-bar"><div class="strength-fill" id="strengthFill"></div></div>
+              <span class="strength-text" id="strengthText"></span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="confirmPassword">Confirm Password</label>
+            <div class="password-wrapper">
+              <input type="password" id="confirmPassword" class="form-input" placeholder="Re-enter password" required autocomplete="new-password">
+              <button type="button" class="password-toggle" onclick="togglePassword('confirmPassword')">&#128065;</button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="checkbox-label">
+              <input type="checkbox" id="agreeTerms" required>
+              <span class="checkmark"></span>
+              I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
+            </label>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-lg auth-submit" id="registerBtn">
+            Create Account
+          </button>
+
+          <div class="auth-divider">
+            <span>or</span>
+          </div>
+
+          <button type="button" class="btn btn-secondary btn-lg auth-social" onclick="demoLogin()">
+            Try Demo Account
+          </button>
+        </form>
+
+        <div class="auth-footer">
+          <p>Already have an account? <a href="login.html">Sign in</a></p>
+        </div>
+      </div>
+
+      <div class="auth-visual">
+        <div class="auth-visual-content">
+          <h2>Join the Community</h2>
+          <p>Create your free account and unlock access to our entire library of e-books.</p>
+          <div class="auth-features">
+            <div class="auth-feature">
+              <span>&#9989;</span>
+              <span>Free to Sign Up</span>
+            </div>
+            <div class="auth-feature">
+              <span>&#128214;</span>
+              <span>Unlimited Reading</span>
+            </div>
+            <div class="auth-feature">
+              <span>&#128242;</span>
+              <span>QR Code Access</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-config.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>

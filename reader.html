@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Read books on ICONMIC">
+  <meta name="theme-color" content="#6C5CE7">
+  <title>Reader - ICONMIC</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📖</text></svg>">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="css/reader.css">
+</head>
+<body>
+  <!-- Reader Toolbar -->
+  <div class="reader-toolbar" id="readerToolbar">
+    <div class="toolbar-left">
+      <a href="library.html" class="btn btn-ghost btn-sm toolbar-back">&#8592; Library</a>
+      <div class="toolbar-title" id="toolbarTitle">Loading...</div>
+    </div>
+    <div class="toolbar-right">
+      <button class="btn btn-ghost btn-icon" onclick="decreaseFontSize()" title="Decrease font size">A-</button>
+      <button class="btn btn-ghost btn-icon" onclick="increaseFontSize()" title="Increase font size">A+</button>
+      <button class="btn btn-ghost btn-icon" onclick="toggleTheme()" title="Toggle theme" id="themeToggle">&#127769;</button>
+      <button class="btn btn-ghost btn-icon" onclick="toggleFullscreen()" title="Fullscreen">&#9974;</button>
+    </div>
+  </div>
+
+  <!-- Login Required Overlay -->
+  <div class="login-required" id="loginRequired" style="display: none;">
+    <div class="login-required-card">
+      <div class="login-required-icon">&#128274;</div>
+      <h2>Sign In Required</h2>
+      <p>You need to be signed in to read books on ICONMIC. Create a free account or sign in to continue.</p>
+      <div class="login-required-actions">
+        <a href="login.html" class="btn btn-primary btn-lg">Sign In</a>
+        <a href="register.html" class="btn btn-secondary btn-lg">Create Account</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Anti-Piracy Watermark -->
+  <div class="watermark" id="watermark"></div>
+
+  <!-- Reader Content -->
+  <div class="reader-container" id="readerContainer">
+    <div class="reader-content" id="readerContent">
+      <!-- Book content loaded here -->
+    </div>
+  </div>
+
+  <!-- Chapter Navigation -->
+  <div class="chapter-nav" id="chapterNav">
+    <button class="btn btn-secondary" id="prevChapter" onclick="previousChapter()">&#8592; Previous</button>
+    <span class="chapter-indicator" id="chapterIndicator">Chapter 1 of 1</span>
+    <button class="btn btn-primary" id="nextChapter" onclick="nextChapter()">Next &#8594;</button>
+  </div>
+
+  <!-- Anti-Piracy Warning Modal -->
+  <div class="modal-overlay" id="piracyWarning">
+    <div class="modal">
+      <div style="text-align: center;">
+        <div style="font-size: 3rem; margin-bottom: 1rem;">&#9888;&#65039;</div>
+        <h3>Content Protection Active</h3>
+        <p style="color: var(--text-secondary); margin: 1rem 0;">This content is protected by ICONMIC's anti-piracy system. Screenshots, copying, and screen recording are disabled to protect the author's work.</p>
+        <button class="btn btn-primary" onclick="dismissPiracyWarning()">I Understand</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-config.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/reader.js"></script>
+</body>
+</html>

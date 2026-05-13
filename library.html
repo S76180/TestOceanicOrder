@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Browse the ICONMIC e-book library">
+  <meta name="theme-color" content="#6C5CE7">
+  <title>Library - ICONMIC</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📖</text></svg>">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="css/library.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <div class="logo-icon">IC</div>
+        ICONMIC
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="library.html" class="active">Library</a>
+        <a href="scanner.html">Scan QR</a>
+      </div>
+      <div class="nav-actions">
+        <a href="login.html" class="btn btn-ghost btn-sm">Sign In</a>
+        <a href="register.html" class="btn btn-primary btn-sm">Get Started</a>
+      </div>
+      <button class="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Library Content -->
+  <div class="page-content">
+    <div class="container">
+      <!-- Library Header -->
+      <div class="library-header">
+        <div class="library-title">
+          <h1>Book <span class="text-gradient">Library</span></h1>
+          <p>Discover your next great read</p>
+        </div>
+        <div class="library-search">
+          <div class="search-box">
+            <span class="search-icon">&#128269;</span>
+            <input type="text" id="searchInput" class="search-input" placeholder="Search books, authors...">
+          </div>
+        </div>
+      </div>
+
+      <!-- Genre Filter -->
+      <div class="genre-filter" id="genreFilter">
+        <button class="filter-btn active" data-genre="all">All</button>
+      </div>
+
+      <!-- Books Grid -->
+      <div class="library-grid" id="libraryGrid">
+        <!-- Populated by JS -->
+      </div>
+
+      <!-- Empty State -->
+      <div class="empty-state" id="emptyState" style="display: none;">
+        <div class="empty-icon">&#128214;</div>
+        <h3>No books found</h3>
+        <p>Try a different search or browse another genre</p>
+      </div>
+
+      <!-- Load More -->
+      <div class="load-more" id="loadMore">
+        <button class="btn btn-secondary btn-lg" onclick="loadMoreBooks()">Load More Books</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Book Detail Modal -->
+  <div class="modal-overlay" id="bookDetailModal">
+    <div class="modal book-detail-modal">
+      <button class="modal-close" onclick="closeBookDetail()">&times;</button>
+      <div class="book-detail-content" id="bookDetailContent">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom" style="border: none; padding: 0;">
+        <span>&copy; 2024 ICONMIC. All rights reserved.</span>
+        <span>Made with care for readers everywhere</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-config.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/library.js"></script>
+</body>
+</html>
